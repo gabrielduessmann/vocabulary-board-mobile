@@ -5,16 +5,21 @@
     android:layout_height="match_parent"
     tools:context=".column.ColumnView">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Column"/>
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:layout_marginBottom="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"/>
 
-    <ScrollView
+    <ListView
+        android:id="@+id/listViewCards"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="70dp"
-        android:scrollbars="none">
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:id="@+id/cardsContainer"
@@ -28,6 +33,6 @@
                 />
 
         </LinearLayout>
-    </ScrollView>
+    </ListView>
 
 </RelativeLayout>
