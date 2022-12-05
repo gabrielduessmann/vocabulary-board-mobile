@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+
+    // add these two more plugins and then sync - get id in a shorter way
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
