@@ -34,7 +34,7 @@ class ColumnView() : Fragment() {
 
         id_column_recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = ColumnRecyclerAdapter(words)
+            adapter = ColumnRecyclerAdapter(words, requireActivity())
         }
     }
 

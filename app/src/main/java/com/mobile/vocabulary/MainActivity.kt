@@ -4,10 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.vocabulary.board.BoardView
-import com.mobile.vocabulary.column.ColumnView
-import kotlinx.android.synthetic.main.fragment_column_view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,10 +12,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        showColumn();
+        showBoard();
     }
 
-    fun showColumn() {
+    fun showBoard() {
         var fm: FragmentManager = getSupportFragmentManager();
         var ft: FragmentTransaction = fm.beginTransaction();
 
