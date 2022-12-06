@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SnapHelper
 import com.mobile.vocabulary.R
 import kotlinx.android.synthetic.main.fragment_board_view.*
 
@@ -34,6 +36,9 @@ class BoardView : Fragment() {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = BoardRecyclerAdapter(columns, requireActivity())
         }
+
+        var snapHelper: SnapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(id_board_recyclerView)
     }
 
     fun fetchColumns(): MutableList<String> {
