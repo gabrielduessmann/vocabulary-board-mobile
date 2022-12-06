@@ -4,8 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.mobile.vocabulary.card.CardView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.vocabulary.column.ColumnView
+import kotlinx.android.synthetic.main.fragment_column_view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     fun showColumn() {
         var fm: FragmentManager = getSupportFragmentManager();
         var ft: FragmentTransaction = fm.beginTransaction();
+
         ft.replace(R.id.frame, ColumnView())
         ft.commitNow()
     }
