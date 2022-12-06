@@ -19,7 +19,7 @@ class ColumnRecyclerAdapter (private var titles: List<String>, private var activ
 
         init {
             itemView.setOnClickListener { v: View ->
-                openVocabularyModal()
+                openVocabularyModal(adapterPosition)
             }
 
             itemView.openButton.setOnClickListener {
@@ -43,9 +43,9 @@ class ColumnRecyclerAdapter (private var titles: List<String>, private var activ
         return titles.size
     }
 
-    private fun openVocabularyModal() {
+    private fun openVocabularyModal(position: Int) {
         var ft: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
-        ft.replace(R.id.frame, VocabularyView())
+        ft.replace(R.id.frame, VocabularyView(titles[position]))
         ft.commit()
         ft.addToBackStack(null);
     }

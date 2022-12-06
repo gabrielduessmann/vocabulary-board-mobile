@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mobile.vocabulary.R
+import kotlinx.android.synthetic.main.fragment_vocabulary_view.*
 
-class VocabularyView : Fragment() {
+class VocabularyView(var word: String) : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -23,6 +24,8 @@ class VocabularyView : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        id_vocab_title.text = word
 
         var columns = fetchColumns()
     }
