@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mobile.vocabulary.board.BoardView
 import com.mobile.vocabulary.column.ColumnView
 import kotlinx.android.synthetic.main.fragment_column_view.*
 
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         var fm: FragmentManager = getSupportFragmentManager();
         var ft: FragmentTransaction = fm.beginTransaction();
 
-        ft.replace(R.id.frame, ColumnView())
+        ft.replace(R.id.frame, BoardView())
         ft.commitNow()
     }
 }

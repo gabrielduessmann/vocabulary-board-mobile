@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
+import kotlinx.android.synthetic.main.fragment_card_view.view.*
 
 class ColumnRecyclerAdapter (private var titles: List<String>) :
     RecyclerView.Adapter<ColumnRecyclerAdapter.ViewHolder>() {
@@ -16,7 +17,12 @@ class ColumnRecyclerAdapter (private var titles: List<String>) :
         init {
             itemView.setOnClickListener { v: View ->
                 val position: Int = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on country \"${titles[position]}\"", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, "You clicked on word \"${titles[position]}\"", Toast.LENGTH_SHORT).show()
+            }
+
+            itemView.openButton.setOnClickListener {
+                val position: Int = adapterPosition
+                Toast.makeText(itemView.context, "You clicked on button \"${titles[position]}\"", Toast.LENGTH_SHORT).show()
             }
         }
     }
