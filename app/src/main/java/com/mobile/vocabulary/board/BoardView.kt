@@ -30,7 +30,7 @@ class BoardView : Fragment() {
 
         var columns = fetchColumns()
 
-        id_column_recyclerView.apply {
+        id_board_recyclerView.apply {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = BoardRecyclerAdapter(columns)
         }
