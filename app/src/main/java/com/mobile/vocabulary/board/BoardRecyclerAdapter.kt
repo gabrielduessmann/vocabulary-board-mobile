@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
 import com.mobile.vocabulary.column.ColumnRecyclerAdapter
+import com.mobile.vocabulary.column.ColumnView
 import kotlinx.android.synthetic.main.fragment_column_view.view.*
 
 class BoardRecyclerAdapter (private var columns: List<String>) :
@@ -25,9 +26,13 @@ class BoardRecyclerAdapter (private var columns: List<String>) :
         }
 
         fun bind() {
-            val childMembersAdapter = ColumnRecyclerAdapter(listOf("teste"))
-            itemView.id_column_recyclerView.layoutManager = LinearLayoutManager(itemView.context)
-            itemView.id_column_recyclerView.adapter = childMembersAdapter
+
+            var column = ColumnView()
+
+            itemView.id_column_recyclerView.apply {
+                layoutManager = LinearLayoutManager(itemView.context)
+                adapter = ColumnRecyclerAdapter(column.fetchWords())
+            }
 
         }
     }
