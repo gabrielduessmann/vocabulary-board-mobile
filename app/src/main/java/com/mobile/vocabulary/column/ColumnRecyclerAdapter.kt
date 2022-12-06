@@ -5,19 +5,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
+import com.mobile.vocabulary.vocabulary.VocabularyView
 import kotlinx.android.synthetic.main.fragment_card_view.view.*
 
-class ColumnRecyclerAdapter (private var titles: List<String>) :
+class ColumnRecyclerAdapter (private var titles: List<String>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<ColumnRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.cardTitle)
 
         init {
             itemView.setOnClickListener { v: View ->
-                val position: Int = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on word \"${titles[position]}\"", Toast.LENGTH_SHORT).show()
+                openVocabularyModal()
             }
 
             itemView.openButton.setOnClickListener {
@@ -39,5 +41,12 @@ class ColumnRecyclerAdapter (private var titles: List<String>) :
 
     override fun getItemCount(): Int {
         return titles.size
+    }
+
+    private fun openVocabularyModal() {
+        var ft: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
+        ft.replace(R.id.frame, VocabularyView())
+        ft.commit()
+        ft.addToBackStack(null);
     }
 }

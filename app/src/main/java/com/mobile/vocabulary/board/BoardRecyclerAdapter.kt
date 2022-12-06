@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
@@ -12,7 +13,7 @@ import com.mobile.vocabulary.column.ColumnRecyclerAdapter
 import com.mobile.vocabulary.column.ColumnView
 import kotlinx.android.synthetic.main.fragment_column_view.view.*
 
-class BoardRecyclerAdapter (private var columns: List<String>) :
+class BoardRecyclerAdapter (private var columns: List<String>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -31,7 +32,7 @@ class BoardRecyclerAdapter (private var columns: List<String>) :
 
             itemView.id_column_recyclerView.apply {
                 layoutManager = LinearLayoutManager(itemView.context)
-                adapter = ColumnRecyclerAdapter(column.fetchWords())
+                adapter = ColumnRecyclerAdapter(column.fetchWords(), activity)
             }
 
         }
