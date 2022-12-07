@@ -9,11 +9,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
+import com.mobile.vocabulary.column.Column
 import com.mobile.vocabulary.column.ColumnRecyclerAdapter
 import com.mobile.vocabulary.column.ColumnView
 import kotlinx.android.synthetic.main.fragment_column_view.view.*
 
-class BoardRecyclerAdapter (private var columns: List<String>, private var activity: FragmentActivity) :
+class BoardRecyclerAdapter (private var columns: List<Column>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,7 +23,7 @@ class BoardRecyclerAdapter (private var columns: List<String>, private var activ
         init {
             itemView.setOnClickListener { v: View ->
                 val position: Int = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on country \"${columns[position]}\"", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, "You clicked on country \"${columns[position].title}\"", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -44,7 +45,8 @@ class BoardRecyclerAdapter (private var columns: List<String>, private var activ
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.columnTitle.text = columns[position]
+        var column: Column = columns.get(position)
+        holder.columnTitle.text = column.title
         holder.bind()
 
     }
