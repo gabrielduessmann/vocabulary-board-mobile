@@ -22,8 +22,6 @@ import retrofit2.Response
 
 class BoardView : Fragment() {
 
-    private val viewModel: BoardViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }

@@ -9,10 +9,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
+import com.mobile.vocabulary.vocabulary.Vocabulary
 import com.mobile.vocabulary.vocabulary.VocabularyView
 import kotlinx.android.synthetic.main.fragment_card_view.view.*
 
-class ColumnRecyclerAdapter (private var titles: List<String>, private var activity: FragmentActivity) :
+class ColumnRecyclerAdapter (private var titles: List<Vocabulary>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<ColumnRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTitle: TextView = itemView.findViewById(R.id.cardTitle)
@@ -24,7 +25,7 @@ class ColumnRecyclerAdapter (private var titles: List<String>, private var activ
 
             itemView.openButton.setOnClickListener {
                 val position: Int = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on button \"${titles[position]}\"", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, "You clicked on button \"${titles[position].word}\"", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -35,7 +36,7 @@ class ColumnRecyclerAdapter (private var titles: List<String>, private var activ
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemTitle.text = titles[position]
+        holder.itemTitle.text = titles[position].word
 
     }
 
@@ -45,7 +46,7 @@ class ColumnRecyclerAdapter (private var titles: List<String>, private var activ
 
     private fun openVocabularyModal(position: Int) {
         var ft: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
-        ft.replace(R.id.frame, VocabularyView(titles[position]))
+        ft.replace(R.id.frame, VocabularyView(titles[position].word))
         ft.commit()
         ft.addToBackStack(null);
     }

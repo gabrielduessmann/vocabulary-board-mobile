@@ -1,11 +1,13 @@
 package com.mobile.vocabulary.infra.network
 
 import com.mobile.vocabulary.column.Column
+import com.mobile.vocabulary.vocabulary.Vocabulary
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
+import java.util.*
 
 
 private const val BASE_URL =
@@ -21,6 +23,9 @@ interface VocabularyApiService {
     @GET("columns")
     fun getColumns(): Call<List<Column>>
     // suspend fun getColumns(): Call<List<Column>> - Why suspend?
+
+    @GET("vocabularies/column/{columnId}")
+    fun getVocabulariesByColumnId(@Path("columnId") columnId: UUID): Call<List<Vocabulary>>
 }
 
 object VocabularyApi {
