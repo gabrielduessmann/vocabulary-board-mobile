@@ -9,11 +9,18 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
+import com.mobile.vocabulary.column.Column
 import com.mobile.vocabulary.column.ColumnRecyclerAdapter
-import com.mobile.vocabulary.column.ColumnView
+import com.mobile.vocabulary.infra.network.VocabularyApi
+import com.mobile.vocabulary.vocabulary.Vocabulary
 import kotlinx.android.synthetic.main.fragment_column_view.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
-class BoardRecyclerAdapter (private var columns: List<String>, private var activity: FragmentActivity) :
+class BoardRecyclerAdapter (private var columns: List<Column>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,19 +29,29 @@ class BoardRecyclerAdapter (private var columns: List<String>, private var activ
         init {
             itemView.setOnClickListener { v: View ->
                 val position: Int = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on country \"${columns[position]}\"", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, "You clicked on country \"${columns[position].title}\"", Toast.LENGTH_SHORT).show()
             }
         }
 
         fun bind() {
+            var columnId: UUID = columns[adapterPosition].id
+            val call: Call<List<Vocabulary>> = VocabularyApi.retrofitService.getVocabulariesByColumnId(columnId)
 
-            var column = ColumnView()
+            call.enqueue(object : Callback<List<Vocabulary>> {
+                override fun onResponse(call: Call<List<Vocabulary>>, response: Response<List<Vocabulary>>) {
+                    if (response.isSuccessful) {
+                        var data = response.body() as ArrayList<Vocabulary>
 
-            itemView.id_column_recyclerView.apply {
-                layoutManager = LinearLayoutManager(itemView.context)
-                adapter = ColumnRecyclerAdapter(column.fetchWords(), activity)
-            }
-
+                        itemView.id_column_recyclerView.apply {
+                            layoutManager = LinearLayoutManager(itemView.context)
+                            adapter = ColumnRecyclerAdapter(data, activity)
+                        }
+                    }
+                }
+                override fun onFailure(call: Call<List<Vocabulary>>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
         }
     }
 
@@ -44,7 +61,8 @@ class BoardRecyclerAdapter (private var columns: List<String>, private var activ
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.columnTitle.text = columns[position]
+        var column: Column = columns.get(position)
+        holder.columnTitle.text = column.title
         holder.bind()
 
     }
@@ -52,4 +70,5 @@ class BoardRecyclerAdapter (private var columns: List<String>, private var activ
     override fun getItemCount(): Int {
         return columns.size
     }
+
 }
