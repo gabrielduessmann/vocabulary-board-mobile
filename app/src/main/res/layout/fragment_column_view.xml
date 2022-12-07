@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/purple_500">
+        android:background="#D3D3D3">
 
         <TextView
             android:id="@+id/id_column_title"
@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="28dp"
+            android:textStyle="bold"
+            android:textSize="38dp"
             tools:ignore="MissingConstraints" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -41,6 +42,7 @@
             android:background="@color/black"
             android:textSize="28dp"
             app:layout_constraintBottom_toBottomOf="@id/id_column_recyclerView"
+            android:visibility="visible"
             />
 
 
