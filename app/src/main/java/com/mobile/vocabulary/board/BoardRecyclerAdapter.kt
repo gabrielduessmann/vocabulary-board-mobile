@@ -3,6 +3,7 @@ package com.mobile.vocabulary.board
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -37,9 +38,15 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
             var columnId: UUID = columns[adapterPosition].id
             val call: Call<List<Vocabulary>> = VocabularyApi.retrofitService.getVocabulariesByColumnId(columnId)
 
+            var loader: ProgressBar = itemView.findViewById(R.id.progress_bar)
+
             call.enqueue(object : Callback<List<Vocabulary>> {
                 override fun onResponse(call: Call<List<Vocabulary>>, response: Response<List<Vocabulary>>) {
                     if (response.isSuccessful) {
+
+
+                        loader.visibility = View.GONE
+
                         var data = response.body() as ArrayList<Vocabulary>
 
                         itemView.id_column_recyclerView.apply {
@@ -49,6 +56,7 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
                     }
                 }
                 override fun onFailure(call: Call<List<Vocabulary>>, t: Throwable) {
+                    loader.visibility = View.GONE
                     t.printStackTrace()
                 }
             })
