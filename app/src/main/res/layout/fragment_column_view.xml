@@ -14,9 +14,9 @@
 
         <ProgressBar
             android:id="@+id/progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="MissingConstraints" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:ignore="MissingConstraints"/>
 
         <TextView
             android:id="@+id/id_column_title"
@@ -36,21 +36,19 @@
             android:paddingBottom="100dp"
             tools:listitem="@layout/fragment_card_view"
             app:layout_constraintTop_toTopOf="@id/id_column_title"
-            app:layout_constraintTop_toBottomOf="@id/id_button_new_vocab"/>
+            app:layout_constraintTop_toBottomOf="@id/id_button_add_vocab"/>
 
         <Button
-            android:id="@+id/id_button_new_vocab"
+            android:id="@+id/id_button_add_vocab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
+            android:background="@color/black"
             android:text="Add vocabulary"
             android:textColor="@color/white"
-            android:background="@color/black"
             android:textSize="28dp"
-            app:layout_constraintBottom_toBottomOf="@id/id_column_recyclerView"
             android:visibility="visible"
-            />
-
+            app:layout_constraintBottom_toBottomOf="@id/id_column_recyclerView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
