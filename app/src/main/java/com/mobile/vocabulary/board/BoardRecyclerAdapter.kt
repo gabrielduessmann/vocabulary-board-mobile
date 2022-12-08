@@ -1,8 +1,10 @@
 package com.mobile.vocabulary.board
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -20,17 +22,50 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.DialogInterface as DialogInterface1
 
 class BoardRecyclerAdapter (private var columns: List<Column>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<BoardRecyclerAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View, parent: ViewGroup) : RecyclerView.ViewHolder(itemView) {
         val columnTitle: TextView = itemView.findViewById(R.id.id_column_title)
 
         init {
             itemView.setOnClickListener { v: View ->
                 val position: Int = adapterPosition
                 Toast.makeText(itemView.context, "You clicked on country \"${columns[position].title}\"", Toast.LENGTH_SHORT).show()
+            }
+
+
+            itemView.id_button_add_vocab.setOnClickListener { v: View ->
+                var alert: AlertDialog.Builder = AlertDialog.Builder(activity)
+
+                val dialogView = LayoutInflater.from(activity).inflate(R.layout.fragment_dialog_add_vocabulary, parent, false)
+
+
+                alert.setView(dialogView)
+                    .setTitle("Type the new vocabulary")
+                    .setPositiveButton("Add", DialogInterface1.OnClickListener { dialogInterface, i ->
+                        val newVocabulary: EditText = dialogView.findViewById(R.id.id_dialog_word)
+                        Toast.makeText(activity, "Word ${newVocabulary.text} added!", Toast.LENGTH_SHORT).show()
+
+                        var newVocab: Vocabulary = Vocabulary(null, newVocabulary.text.toString(), "desc")
+                        val call: Call<Vocabulary> = VocabularyApi.retrofitService.addVocabulary(newVocab)
+
+                        call.enqueue(object : Callback<Vocabulary> {
+                            override fun onResponse(call: Call<Vocabulary>, response: Response<Vocabulary>) {
+                                bind()
+                            }
+                            override fun onFailure(call: Call<Vocabulary>, t: Throwable) {
+                                t.printStackTrace()
+                            }
+                        })
+
+
+                    })
+                    .setNegativeButton("Close", DialogInterface1.OnClickListener { dialogInterface, i -> })
+
+                alert.create().show()
             }
         }
 
@@ -65,7 +100,7 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_column_view, parent, false)
-        return ViewHolder(v)
+        return ViewHolder(v, parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

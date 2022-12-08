@@ -5,7 +5,9 @@ import com.mobile.vocabulary.vocabulary.Vocabulary
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.*
 
@@ -26,6 +28,9 @@ interface VocabularyApiService {
 
     @GET("vocabularies/column/{columnId}")
     fun getVocabulariesByColumnId(@Path("columnId") columnId: UUID): Call<List<Vocabulary>>
+
+    @POST("vocabulary")
+    fun addVocabulary(@Body vocabulary: Vocabulary): Call<Vocabulary>
 }
 
 object VocabularyApi {
