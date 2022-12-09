@@ -13,19 +13,18 @@ import com.mobile.vocabulary.vocabulary.Vocabulary
 import com.mobile.vocabulary.vocabulary.VocabularyView
 import kotlinx.android.synthetic.main.fragment_card_view.view.*
 
-class ColumnRecyclerAdapter (private var titles: List<Vocabulary>, private var activity: FragmentActivity) :
+class ColumnRecyclerAdapter (private var vocabularies: List<Vocabulary>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<ColumnRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemTitle: TextView = itemView.findViewById(R.id.cardTitle)
+        val vocabTitle: TextView = itemView.findViewById(R.id.cardTitle)
 
         init {
             itemView.setOnClickListener { v: View ->
-                openVocabularyModal(adapterPosition)
+                openVocabularyFragment(adapterPosition)
             }
 
             itemView.openButton.setOnClickListener {
-                val position: Int = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on button \"${titles[position].word}\"", Toast.LENGTH_SHORT).show()
+                Toast.makeText(itemView.context, "You clicked on button \"${vocabularies[adapterPosition].word}\"", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -36,17 +35,16 @@ class ColumnRecyclerAdapter (private var titles: List<Vocabulary>, private var a
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemTitle.text = titles[position].word
-
+        holder.vocabTitle.text = vocabularies[position].word
     }
 
     override fun getItemCount(): Int {
-        return titles.size
+        return vocabularies.size
     }
 
-    private fun openVocabularyModal(position: Int) {
+    private fun openVocabularyFragment(index: Int) {
         var ft: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
-        ft.replace(R.id.frame, VocabularyView(titles[position].word))
+        ft.replace(R.id.frame, VocabularyView(vocabularies[index].word))
         ft.commit()
         ft.addToBackStack(null);
     }
