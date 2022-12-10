@@ -1,6 +1,7 @@
 package com.mobile.vocabulary.infra.network
 
 import com.mobile.vocabulary.column.Column
+import com.mobile.vocabulary.comment.Comment
 import com.mobile.vocabulary.vocabulary.Vocabulary
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -28,6 +29,9 @@ interface VocabularyApiService {
 
     @GET("vocabularies/column/{columnId}")
     fun getVocabulariesByColumnId(@Path("columnId") columnId: UUID): Call<List<Vocabulary>>
+
+    @GET("vocabulary/{vocabularyId}/comments")
+    fun getCommentsByVocabularyId(@Path("vocabularyId") vocabularyId: UUID): Call<List<Comment>>
 
     @POST("vocabulary")
     fun addVocabulary(@Body vocabulary: Vocabulary): Call<Vocabulary>

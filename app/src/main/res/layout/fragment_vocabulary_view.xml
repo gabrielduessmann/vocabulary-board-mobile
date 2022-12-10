@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".vocabulary.VocabularyView">
+    tools:context=".vocabulary.VocabularyView"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:text="Back"/>
+
+
+    <TextView
+        android:id="@+id/id_vocab_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vocabulary"
+        tools:ignore="MissingConstraints"
+        android:textStyle="bold"
+        android:textSize="35dp"/>
+
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:hint="Type the new sentence here..."
+        android:paddingVertical="50dp"
+        tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/id_vocab_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Here is the vocabulary"
-            tools:ignore="MissingConstraints" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/id_comment_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/fragment_sentence_view"
+    />
 
-</FrameLayout>
+
+</LinearLayout>
