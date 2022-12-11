@@ -98,9 +98,10 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
     }
 
     private fun setClickListenerButtonAddNewVocab(itemView: View, viewGroupParent: ViewGroup, index: Int) {
-        var dialogView = inflateDialogView(viewGroupParent)
-
         itemView.id_button_add_vocab.setOnClickListener { v: View ->
+            // needs to inflate every time, otherwise it crashes
+            var dialogView = inflateDialogView(viewGroupParent)
+
             AlertDialog.Builder(activity)
                 .setView(dialogView)
                 .setTitle("Type the new vocabulary")
