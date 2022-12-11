@@ -35,6 +35,9 @@ interface VocabularyApiService {
 
     @POST("vocabulary")
     fun addVocabulary(@Body vocabulary: Vocabulary): Call<Vocabulary>
+
+    @POST("comment")
+    fun addComment(@Body comment: Comment): Call<Comment>
 }
 
 object VocabularyApi {

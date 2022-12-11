@@ -1,12 +1,16 @@
 package com.mobile.vocabulary.comment
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
+import java.util.*
 
 class CommentRecyclerAdapter (private var comments: List<Comment>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<CommentRecyclerAdapter.ViewHolder>() {
@@ -14,6 +18,10 @@ class CommentRecyclerAdapter (private var comments: List<Comment>, private var a
         val comment: TextView = itemView.findViewById(R.id.id_comment_text)
 
         init {
+            var deleteCommentButton: ImageView = itemView.findViewById(R.id.id_image_detele_comment)
+            deleteCommentButton.setOnClickListener {
+                deleteComment(comments[adapterPosition].id!!, itemView.context)
+            }
         }
     }
 
@@ -28,5 +36,9 @@ class CommentRecyclerAdapter (private var comments: List<Comment>, private var a
 
     override fun getItemCount(): Int {
         return comments.size
+    }
+
+    private fun deleteComment(commentId: UUID, context: Context) {
+        Toast.makeText(context, "Comment with id \"${commentId}\" deleted", Toast.LENGTH_SHORT).show()
     }
 }

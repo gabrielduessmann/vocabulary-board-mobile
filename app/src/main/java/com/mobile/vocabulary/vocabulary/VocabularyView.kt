@@ -1,10 +1,12 @@
 package com.mobile.vocabulary.vocabulary
 
+import android.app.Activity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mobile.vocabulary.R
 import com.mobile.vocabulary.comment.Comment
@@ -15,9 +17,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import kotlin.collections.ArrayList
 
-class VocabularyView(var vocabularyId: UUID) : Fragment() {
+
+class VocabularyView(var vocabulary: Vocabulary) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,19 +32,22 @@ class VocabularyView(var vocabularyId: UUID) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        id_vocab_title.text = vocabularyId.toString()
+        id_vocab_title.text = vocabulary.word
+        fetchCommentsByVocabularyId()
 
-        fetchComments()
+        id_save_new_comment.setOnClickListener { v: View ->
+            addNewComment(v)
+        }
     }
 
-    private fun fetchComments() {
+    private fun fetchCommentsByVocabularyId() {
         VocabularyApi.retrofitService
-            .getCommentsByVocabularyId(vocabularyId)
+            .getCommentsByVocabularyId(vocabulary.id!!)
             .enqueue(object : Callback<List<Comment>> {
                 override fun onResponse(call: Call<List<Comment>>, response: Response<List<Comment>>) {
                     if (response.isSuccessful) {
                         var data = response.body() as ArrayList<Comment>
-                        applyCommentRecyclerAdapter(data)
+                        setCommentRecyclerAdapter(data)
                     }
                 }
                 override fun onFailure(call: Call<List<Comment>>, t: Throwable) {
@@ -51,10 +56,36 @@ class VocabularyView(var vocabularyId: UUID) : Fragment() {
             })
     }
 
-    private fun applyCommentRecyclerAdapter(comments: List<Comment>) {
+    private fun setCommentRecyclerAdapter(comments: List<Comment>) {
         id_comment_recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = CommentRecyclerAdapter(comments, requireActivity())
         }
+    }
+
+    private fun addNewComment(view: View) {
+        var comment: String = id_comment_text.text.toString()
+        var newComment = Comment(null, comment, vocabulary)
+
+        cleanTextAndHideKeyboard(view)
+
+        VocabularyApi.retrofitService
+            .addComment(newComment)
+            .enqueue(object : Callback<Comment> {
+                override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
+                    fetchCommentsByVocabularyId()
+                }
+                override fun onFailure(call: Call<Comment>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+    }
+
+    private fun cleanTextAndHideKeyboard(view: View) {
+        id_comment_text.text = null
+
+        val imm: InputMethodManager =
+            requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
