@@ -47,15 +47,16 @@ class CommentRecyclerAdapter (private var comments: List<Comment>, private var a
 
         VocabularyApi.retrofitService
             .deleteCommentById(id)
-            .enqueue(object : Callback<Comment> {
-                override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
-                        Toast.makeText(context, "Comment with id \"${id}\" deleted", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Comment deleted. Please refresh the screen.", Toast.LENGTH_SHORT).show()
 //                        var data = response.body() as ArrayList<Column>
 //                        applyRecyclerAdapter(data)
+//                        comments = listOf()
                     }
                 }
-                override fun onFailure(call: Call<Comment>, t: Throwable) {
+                override fun onFailure(call: Call<Void>, t: Throwable) {
                     t.printStackTrace()
                 }
             })

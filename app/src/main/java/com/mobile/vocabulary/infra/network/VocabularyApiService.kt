@@ -37,7 +37,7 @@ interface VocabularyApiService {
     fun addComment(@Body comment: Comment): Call<Comment>
 
     @DELETE("comment/{id}")
-    fun deleteCommentById(@Path("id") id: UUID): Call<Comment>
+    fun deleteCommentById(@Path("id") id: UUID): Call<Void>
 }
 
 object VocabularyApi {

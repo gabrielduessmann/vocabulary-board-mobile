@@ -103,7 +103,7 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
         itemView.id_button_add_vocab.setOnClickListener { v: View ->
             AlertDialog.Builder(activity)
                 .setView(dialogView)
-                .setTitle("Type the new vocabulary")
+                .setTitle("New vocabulary")
                 .setPositiveButton("Add", { dialogInterface, i -> addNewVocab(itemView, dialogView, index) })
                 .setNegativeButton("Close", { dialogInterface, i -> })
                 .create()
@@ -123,7 +123,7 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
             .addVocabulary(newVocab)
             .enqueue(object : Callback<Vocabulary> {
                 override fun onResponse(call: Call<Vocabulary>, response: Response<Vocabulary>) {
-                    showToastVocabAdded(dialogView, newVocab.word)
+                    showToastVocabAdded()
                     loadVocabulariesByColumnId(columnView, index)
                 }
                 override fun onFailure(call: Call<Vocabulary>, t: Throwable) {
@@ -132,8 +132,8 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
             })
     }
 
-    private fun showToastVocabAdded(dialogView: View, word: String) {
-        Toast.makeText(activity, "The new vocabulary '${word}' was added.", Toast.LENGTH_SHORT).show()
+    private fun showToastVocabAdded() {
+        Toast.makeText(activity, "New vocabulary added.", Toast.LENGTH_SHORT).show()
     }
 
 }
