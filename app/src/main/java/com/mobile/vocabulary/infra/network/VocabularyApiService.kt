@@ -6,10 +6,7 @@ import com.mobile.vocabulary.vocabulary.Vocabulary
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 import java.util.*
 
 
@@ -38,6 +35,9 @@ interface VocabularyApiService {
 
     @POST("comment")
     fun addComment(@Body comment: Comment): Call<Comment>
+
+    @DELETE("comment/{id}")
+    fun deleteCommentById(@Path("id") id: UUID): Call<Comment>
 }
 
 object VocabularyApi {

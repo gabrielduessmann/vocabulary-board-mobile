@@ -10,6 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
+import com.mobile.vocabulary.infra.network.VocabularyApi
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 
 class CommentRecyclerAdapter (private var comments: List<Comment>, private var activity: FragmentActivity) :
@@ -20,7 +24,7 @@ class CommentRecyclerAdapter (private var comments: List<Comment>, private var a
         init {
             var deleteCommentButton: ImageView = itemView.findViewById(R.id.id_image_detele_comment)
             deleteCommentButton.setOnClickListener {
-                deleteComment(comments[adapterPosition].id!!, itemView.context)
+                deleteComment(adapterPosition, itemView.context)
             }
         }
     }
@@ -38,7 +42,22 @@ class CommentRecyclerAdapter (private var comments: List<Comment>, private var a
         return comments.size
     }
 
-    private fun deleteComment(commentId: UUID, context: Context) {
-        Toast.makeText(context, "Comment with id \"${commentId}\" deleted", Toast.LENGTH_SHORT).show()
+    private fun deleteComment(index: Int, context: Context) {
+        var id: UUID = comments[index].id!!
+
+        VocabularyApi.retrofitService
+            .deleteCommentById(id)
+            .enqueue(object : Callback<Comment> {
+                override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(context, "Comment with id \"${id}\" deleted", Toast.LENGTH_SHORT).show()
+//                        var data = response.body() as ArrayList<Column>
+//                        applyRecyclerAdapter(data)
+                    }
+                }
+                override fun onFailure(call: Call<Comment>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
     }
 }
