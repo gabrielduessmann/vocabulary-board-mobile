@@ -30,10 +30,6 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
         val columnTitle: TextView = itemView.findViewById(R.id.id_column_title)
 
         init {
-            itemView.setOnClickListener { v: View ->
-                val position: Int = adapterPosition
-                Toast.makeText(itemView.context, "You clicked on country \"${columns[position].title}\"", Toast.LENGTH_SHORT).show()
-            }
             setClickListenerButtonAddNewVocab(itemView, parent, adapterPosition+1) // FIXME - understand why is necessary to sum +1
         }
     }
