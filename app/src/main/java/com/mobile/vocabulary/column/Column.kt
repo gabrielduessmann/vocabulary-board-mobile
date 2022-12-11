@@ -2,7 +2,7 @@ package com.mobile.vocabulary.column
 
 import java.util.*
 
-class Column(
+data class Column(
     val id: UUID,
     val title: String,
     val nextUpdate: Date,

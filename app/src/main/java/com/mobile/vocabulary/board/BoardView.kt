@@ -41,25 +41,20 @@ class BoardView : Fragment() {
         fetchColumns()
     }
 
-    fun fetchColumns(): List<Column> {
-
-        val callColumns: Call<List<Column>> = VocabularyApi.retrofitService.getColumns()
-
-        var data = ArrayList<Column>()
-
-        callColumns.enqueue(object : Callback<List<Column>> {
-            override fun onResponse(call: Call<List<Column>>, response: Response<List<Column>>) {
-                if (response.isSuccessful) {
-                    data = response.body() as ArrayList<Column>
-                    applyRecyclerAdapter(data)
+    private fun fetchColumns() {
+        VocabularyApi.retrofitService
+            .getColumns()
+            .enqueue(object : Callback<List<Column>> {
+                override fun onResponse(call: Call<List<Column>>, response: Response<List<Column>>) {
+                    if (response.isSuccessful) {
+                        var data = response.body() as ArrayList<Column>
+                        applyRecyclerAdapter(data)
+                    }
                 }
-            }
-            override fun onFailure(call: Call<List<Column>>, t: Throwable) {
-                t.printStackTrace()
-            }
-        })
-
-        return data
+                override fun onFailure(call: Call<List<Column>>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
     }
 
     private fun applyRecyclerAdapter(columns: List<Column>) {

@@ -44,8 +44,8 @@ class ColumnRecyclerAdapter (private var vocabularies: List<Vocabulary>, private
 
     private fun openVocabularyFragment(index: Int) {
         var ft: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
-        ft.replace(R.id.frame, VocabularyView(vocabularies[index].word))
-        ft.commit()
+        ft.replace(R.id.frame, VocabularyView(vocabularies[index]))
         ft.addToBackStack(null);
+        ft.commit()
     }
 }
