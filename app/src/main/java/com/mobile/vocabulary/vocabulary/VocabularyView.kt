@@ -38,6 +38,10 @@ class VocabularyView(var vocabulary: Vocabulary) : Fragment() {
         id_save_new_comment.setOnClickListener { v: View ->
             addNewComment(v)
         }
+
+        id_image_close_comment.setOnClickListener {
+            // go back to previous fragment
+        }
     }
 
     private fun fetchCommentsByVocabularyId() {

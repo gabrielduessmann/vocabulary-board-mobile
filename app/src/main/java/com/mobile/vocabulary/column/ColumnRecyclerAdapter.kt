@@ -9,14 +9,19 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
+import com.mobile.vocabulary.infra.network.VocabularyApi
 import com.mobile.vocabulary.vocabulary.Vocabulary
 import com.mobile.vocabulary.vocabulary.VocabularyView
 import kotlinx.android.synthetic.main.fragment_card_view.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ColumnRecyclerAdapter (private var vocabularies: List<Vocabulary>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<ColumnRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val vocabTitle: TextView = itemView.findViewById(R.id.cardTitle)
+
 
         init {
             itemView.setOnClickListener { v: View ->
@@ -24,7 +29,7 @@ class ColumnRecyclerAdapter (private var vocabularies: List<Vocabulary>, private
             }
 
             itemView.openButton.setOnClickListener {
-                Toast.makeText(itemView.context, "You clicked on button \"${vocabularies[adapterPosition].word}\"", Toast.LENGTH_SHORT).show()
+                moveCardToNextColumn(adapterPosition)
             }
         }
     }
@@ -47,5 +52,22 @@ class ColumnRecyclerAdapter (private var vocabularies: List<Vocabulary>, private
         ft.replace(R.id.frame, VocabularyView(vocabularies[index]))
         ft.addToBackStack(null);
         ft.commit()
+    }
+
+    private fun moveCardToNextColumn(index: Int) {
+        VocabularyApi.retrofitService
+            .moveCardToNextColumn(vocabularies[index].id!!)
+            .enqueue(object : Callback<Void> {
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    showToastMovedCard(vocabularies[index].word)
+                }
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    t.printStackTrace()
+                }
+            })
+    }
+
+    private fun showToastMovedCard(word: String) {
+        Toast.makeText(activity, "Vocabulary '${word}' moved to next column.", Toast.LENGTH_SHORT).show()
     }
 }

@@ -33,6 +33,9 @@ interface VocabularyApiService {
     @POST("vocabulary")
     fun addVocabulary(@Body vocabulary: Vocabulary): Call<Vocabulary>
 
+    @PUT("vocabulary/{id}/moveToNextColumn")
+    fun moveCardToNextColumn(@Path("id") id: UUID): Call<Void>
+
     @POST("comment")
     fun addComment(@Body comment: Comment): Call<Comment>
 
