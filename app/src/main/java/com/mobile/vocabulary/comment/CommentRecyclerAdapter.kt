@@ -22,7 +22,7 @@ class CommentRecyclerAdapter (private var comments: List<Comment>, private var a
         val comment: TextView = itemView.findViewById(R.id.id_comment_text)
 
         init {
-            var deleteCommentButton: ImageView = itemView.findViewById(R.id.id_image_detele_comment)
+            var deleteCommentButton: ImageView = itemView.findViewById(R.id.id_image_delete_comment)
             deleteCommentButton.setOnClickListener {
                 deleteComment(adapterPosition, itemView.context)
             }

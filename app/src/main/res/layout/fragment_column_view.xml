@@ -37,21 +37,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:paddingBottom="100dp"
-            tools:listitem="@layout/fragment_card_view"
             app:layout_constraintTop_toTopOf="@id/id_column_title"
-            app:layout_constraintTop_toBottomOf="@id/id_button_add_vocab"/>
+            tools:listitem="@layout/fragment_card_view" />
 
         <Button
             android:id="@+id/id_button_add_vocab"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="50dp"
             android:background="@color/black"
-            android:text="Add vocabulary"
             android:textColor="@color/white"
-            android:textSize="28dp"
+            android:text="Add vocabulary"
+            android:textSize="14dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/id_column_recyclerView" />
+            app:layout_constraintBottom_toBottomOf="@id/id_column_recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -22,7 +22,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/id_image_detele_comment"
+        android:id="@+id/id_image_delete_comment"
         android:layout_width="42dp"
         android:layout_height="57dp"
         app:layout_constraintBottom_toBottomOf="parent"
