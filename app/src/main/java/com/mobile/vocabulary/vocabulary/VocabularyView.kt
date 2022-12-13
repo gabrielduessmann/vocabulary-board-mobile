@@ -60,7 +60,7 @@ class VocabularyView(var vocabulary: Vocabulary) : Fragment() {
             })
     }
 
-    private fun setCommentRecyclerAdapter(comments: List<Comment>) {
+    private fun setCommentRecyclerAdapter(comments: ArrayList<Comment>) {
         id_comment_recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = CommentRecyclerAdapter(comments, requireActivity())
