@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
@@ -14,17 +12,13 @@ import com.mobile.vocabulary.R
 import com.mobile.vocabulary.column.Column
 import com.mobile.vocabulary.infra.network.VocabularyApi
 import kotlinx.android.synthetic.main.fragment_board_view.*
-import kotlinx.coroutines.awaitAll
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class BoardView : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    var snapHelper: SnapHelper? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,6 +31,10 @@ class BoardView : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        id_swipe_refresh_column.setOnRefreshListener {
+            fetchColumns()
+        }
 
         fetchColumns()
     }
@@ -62,8 +60,12 @@ class BoardView : Fragment() {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = BoardRecyclerAdapter(columns, requireActivity())
         }
+        id_board_recyclerView.layoutManager!!.scrollToPosition(3)
+        id_swipe_refresh_column.isRefreshing = false
 
-        var snapHelper: SnapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(id_board_recyclerView)
+        if (snapHelper == null) {
+            snapHelper = PagerSnapHelper()
+            snapHelper?.attachToRecyclerView(id_board_recyclerView)
+        }
     }
 }
