@@ -60,12 +60,12 @@ class BoardView : Fragment() {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = BoardRecyclerAdapter(columns, requireActivity())
         }
-        id_board_recyclerView.layoutManager!!.scrollToPosition(3)
+        id_board_recyclerView.layoutManager!!.scrollToPosition(0)
         id_swipe_refresh_column.isRefreshing = false
 
         if (snapHelper == null) {
             snapHelper = PagerSnapHelper()
-            snapHelper?.attachToRecyclerView(id_board_recyclerView)
         }
+        snapHelper?.attachToRecyclerView(id_board_recyclerView)
     }
 }
