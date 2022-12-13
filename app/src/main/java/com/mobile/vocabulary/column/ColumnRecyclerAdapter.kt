@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ColumnRecyclerAdapter (private var vocabularies: List<Vocabulary>, private var activity: FragmentActivity) :
+class ColumnRecyclerAdapter (private var vocabularies: ArrayList<Vocabulary>, private var activity: FragmentActivity) :
     RecyclerView.Adapter<ColumnRecyclerAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val vocabTitle: TextView = itemView.findViewById(R.id.cardTitle)
@@ -60,6 +60,10 @@ class ColumnRecyclerAdapter (private var vocabularies: List<Vocabulary>, private
             .enqueue(object : Callback<Void> {
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     showToastMovedCard(vocabularies[index].word)
+                    vocabularies.removeAt(index)
+
+                    // FIXME - update current column, but not the next one which the card is added
+                    notifyDataSetChanged()
                 }
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     t.printStackTrace()
