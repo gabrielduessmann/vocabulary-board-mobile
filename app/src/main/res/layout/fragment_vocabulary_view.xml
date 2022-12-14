@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:text="Vocabulary"
         tools:ignore="MissingConstraints"
+        android:textColor="@android:color/holo_blue_dark"
         android:textStyle="bold"
         android:textSize="35dp"/>
 
@@ -34,7 +35,8 @@
         android:id="@+id/id_save_new_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"/>
+        android:text="Save"
+        android:textAllCaps="false"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/id_comment_recyclerView"

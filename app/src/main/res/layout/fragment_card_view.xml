@@ -23,8 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textColor="@android:color/holo_blue_dark"
-                android:textFontWeight="1000"
-                android:textSize="30dp"/>
+                android:textSize="26dp"/>
 
             <Button
                 android:id="@+id/openButton"
@@ -32,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:text="Move"
+                android:textAllCaps="false"
                 android:layout_alignParentRight="true"/>
 
         </RelativeLayout>

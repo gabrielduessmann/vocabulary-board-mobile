@@ -45,14 +45,15 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginBottom="50dp"
-            android:background="@color/black"
-            android:textColor="@color/white"
+            android:paddingHorizontal="20dp"
+            android:background="@color/white"
             android:text="Add vocabulary"
             android:textSize="14dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="@id/id_column_recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            android:textAllCaps="false"
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
