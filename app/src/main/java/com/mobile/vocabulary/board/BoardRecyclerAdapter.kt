@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mobile.vocabulary.R
 import com.mobile.vocabulary.column.Column
 import com.mobile.vocabulary.column.ColumnRecyclerAdapter
@@ -47,6 +48,10 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
         makeAddVocabularyButtonVisibleWhenColumnIsPool(holder.adapterPosition, holder.itemView)
         loadVocabulariesByColumnId(holder.itemView, holder.adapterPosition)
 
+        holder.itemView.id_swipe_refresh_column.setOnRefreshListener {
+            loadVocabulariesByColumnId(holder.itemView, holder.adapterPosition)
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -59,6 +64,7 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
 
     private fun loadVocabulariesByColumnId(itemView: View, index: Int) {
         var loader: ProgressBar = itemView.findViewById(R.id.progress_bar)
+        var swipeRefresh: SwipeRefreshLayout = itemView.findViewById(R.id.id_swipe_refresh_column)
         showLoader(loader)
 
         var columnId: UUID = getColumnIdByIndexPosition(index)
@@ -68,20 +74,21 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
             .enqueue(object : Callback<List<Vocabulary>> {
                 override fun onResponse(call: Call<List<Vocabulary>>, response: Response<List<Vocabulary>>) {
                     if (response.isSuccessful) {
-                        hideLoader(loader)
+                        hideLoader(loader, swipeRefresh)
                         var data = response.body() as ArrayList<Vocabulary>
                         setColumnRecyclerViewAdapter(itemView, data)
                     }
                 }
                 override fun onFailure(call: Call<List<Vocabulary>>, t: Throwable) {
-                    hideLoader(loader)
+                    hideLoader(loader, swipeRefresh)
                     t.printStackTrace()
                 }
             })
     }
 
-    private fun hideLoader(loader: ProgressBar) {
+    private fun hideLoader(loader: ProgressBar, swipeRefresh: SwipeRefreshLayout) {
         loader.visibility = View.GONE
+        swipeRefresh.isRefreshing = false
     }
 
     private fun showLoader(loader: ProgressBar) {

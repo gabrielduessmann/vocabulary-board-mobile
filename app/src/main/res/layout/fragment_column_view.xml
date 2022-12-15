@@ -29,16 +29,23 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="38dp"
-            tools:ignore="MissingConstraints" />
+        />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/id_column_recyclerView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/id_swipe_refresh_column"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:paddingBottom="100dp"
             app:layout_constraintTop_toTopOf="@id/id_column_title"
-            tools:listitem="@layout/fragment_card_view" />
+            android:paddingBottom="100dp"
+            android:layout_marginTop="40dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/id_column_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/fragment_card_view" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <Button
             android:id="@+id/id_button_add_vocab"
@@ -50,7 +57,7 @@
             android:text="Add vocabulary"
             android:textSize="14dp"
             android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@id/id_column_recyclerView"
+            app:layout_constraintBottom_toBottomOf="@id/id_swipe_refresh_column"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textAllCaps="false"

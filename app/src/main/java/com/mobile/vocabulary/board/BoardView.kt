@@ -32,11 +32,6 @@ class BoardView : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        id_swipe_refresh_column.setOnRefreshListener {
-            fetchColumns()
-        }
-
         fetchColumns()
     }
 
@@ -52,7 +47,6 @@ class BoardView : Fragment() {
                 }
                 override fun onFailure(call: Call<List<Column>>, t: Throwable) {
                     showToastColumnsError()
-                    id_swipe_refresh_column.isRefreshing = false
                     t.printStackTrace()
                 }
             })
@@ -63,8 +57,6 @@ class BoardView : Fragment() {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             adapter = BoardRecyclerAdapter(columns, requireActivity())
         }
-        id_board_recyclerView.layoutManager!!.scrollToPosition(0)
-        id_swipe_refresh_column.isRefreshing = false
 
         if (snapHelper == null) {
             snapHelper = PagerSnapHelper()
