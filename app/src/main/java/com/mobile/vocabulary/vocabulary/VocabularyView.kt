@@ -39,8 +39,8 @@ class VocabularyView(var vocabulary: Vocabulary) : Fragment() {
             addNewComment(v)
         }
 
-        id_image_close_comment.setOnClickListener {
-            // go back to previous fragment
+        id_image_close_vocabulary_activity.setOnClickListener {
+            requireActivity().finish()
         }
     }
 

@@ -24,6 +24,9 @@ interface VocabularyApiService {
     fun getColumns(): Call<List<Column>>
     // suspend fun getColumns(): Call<List<Column>> - Why suspend?
 
+    @GET("vocabulary/{id}")
+    fun getVocabularyById(@Path("id") id: UUID): Call<Vocabulary>
+
     @GET("vocabularies/column/{columnId}")
     fun getVocabulariesByColumnId(@Path("columnId") columnId: UUID): Call<List<Vocabulary>>
 

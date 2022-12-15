@@ -1,17 +1,17 @@
 package com.mobile.vocabulary.column
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
 import com.mobile.vocabulary.infra.network.VocabularyApi
 import com.mobile.vocabulary.vocabulary.Vocabulary
-import com.mobile.vocabulary.vocabulary.VocabularyView
+import com.mobile.vocabulary.vocabulary.VocabularyActivity
 import kotlinx.android.synthetic.main.fragment_card_view.view.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,10 +48,9 @@ class ColumnRecyclerAdapter (private var vocabularies: ArrayList<Vocabulary>, pr
     }
 
     private fun openVocabularyFragment(index: Int) {
-        var ft: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
-        ft.replace(R.id.frame, VocabularyView(vocabularies[index]))
-        ft.addToBackStack(null);
-        ft.commit()
+        var intentToOpenNewActivity: Intent = Intent(this.activity, VocabularyActivity::class.java)
+        intentToOpenNewActivity.putExtra("vocabularyId", vocabularies[index].id.toString())
+        this.activity.startActivity(intentToOpenNewActivity)
     }
 
     private fun moveCardToNextColumn(index: Int) {
