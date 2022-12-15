@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Vocabulary"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".vocabulary.VocabularyActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -3,9 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/activity_main.xml" value="0.371875" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.113" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/drawable/ic_launcher_background.xml" value="0.113" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/activity_vocabulary.xml" value="0.20018115942028986" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/fragment_board_view.xml" value="0.22291666666666668" />
         <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/fragment_card_view.xml" value="0.1" />
-        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/fragment_column_view.xml" value="0.18085106382978725" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/fragment_column_view.xml" value="0.25" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/fragment_dialog_add_vocabulary.xml" value="0.13069908814589665" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/fragment_sentence_view.xml" value="0.2983606557377049" />
+        <entry key="..\:/git/vocabulary-board-mobile/app/src/main/res/layout/fragment_vocabulary_view.xml" value="0.33" />
       </map>
     </option>
   </component>
