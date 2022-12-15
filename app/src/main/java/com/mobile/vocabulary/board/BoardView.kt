@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -50,6 +51,8 @@ class BoardView : Fragment() {
                     }
                 }
                 override fun onFailure(call: Call<List<Column>>, t: Throwable) {
+                    showToastColumnsError()
+                    id_swipe_refresh_column.isRefreshing = false
                     t.printStackTrace()
                 }
             })
@@ -67,5 +70,9 @@ class BoardView : Fragment() {
             snapHelper = PagerSnapHelper()
         }
         snapHelper?.attachToRecyclerView(id_board_recyclerView)
+    }
+
+    private fun showToastColumnsError() {
+        Toast.makeText(activity, "Error to fetch columns.", Toast.LENGTH_SHORT).show()
     }
 }
