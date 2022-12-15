@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobile.vocabulary.R
 import com.mobile.vocabulary.column.Column
 import com.mobile.vocabulary.column.ColumnRecyclerAdapter
+import com.mobile.vocabulary.column.StatusColumn
 import com.mobile.vocabulary.infra.network.VocabularyApi
 import com.mobile.vocabulary.vocabulary.Vocabulary
 import kotlinx.android.synthetic.main.fragment_column_view.view.*
@@ -43,6 +44,7 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
         var column: Column = columns.get(index)
         holder.columnTitle.text = column.title
 
+        makeAddVocabularyButtonVisibleWhenColumnIsPool(holder.adapterPosition, holder.itemView)
         loadVocabulariesByColumnId(holder.itemView, holder.adapterPosition)
 
     }
@@ -133,4 +135,15 @@ class BoardRecyclerAdapter (private var columns: List<Column>, private var activ
         Toast.makeText(activity, "New vocabulary added.", Toast.LENGTH_SHORT).show()
     }
 
+    private fun makeAddVocabularyButtonVisibleWhenColumnIsPool(index: Int, itemView: View) {
+        if (isColumnPool(index)) {
+            itemView.id_button_add_vocab.visibility = View.VISIBLE
+        } else {
+            itemView.id_button_add_vocab.visibility = View.GONE
+        }
+    }
+
+    private fun isColumnPool(indexColumn: Int): Boolean {
+        return columns[indexColumn].status == StatusColumn.POOL
+    }
 }

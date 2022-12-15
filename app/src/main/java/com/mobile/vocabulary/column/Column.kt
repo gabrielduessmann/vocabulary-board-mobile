@@ -6,6 +6,7 @@ data class Column(
     val id: UUID,
     val title: String,
     val nextUpdate: Date,
-    val sprintOrder: Int
+    val sprintOrder: Int,
+    val status: StatusColumn
     ) {
 }
